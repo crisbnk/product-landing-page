@@ -3,8 +3,579 @@
   <head>
     <meta charset="utf-8">
     <title>PRODUCT LANDING PAGE</title>
+    <link
+     href="https://fonts.googleapis.com/css?family=Amatic+SC|Josefin+Slab"
+     rel="stylesheet"
+    >
+    <!-- <link rel="stylesheet" href="style.css"> -->
   </head>
   <body>
+    <!-- I had to insert CSS here to pass FCC tests (flexbox & media queries) in Chrome.
+         Using Firefox all tests passed -->
+    <style>
+      :root {
+        --main-bg-color: #f7a072;
+        --secondary-bg-color: #d9e5d6;
+        --main-font-size: 16px;
+        --main-font-color: #000000;
+        --secondary-font-color: #ffffff;
+        --main-border-color: #00a7e1;
+      }
 
+      body {
+        font-family: 'Josefin Slab', serif;
+        font-size: var(--main-font-size);
+        color: var(--main-font-color);
+        background-color: var(--main-bg-color);
+        margin: 0px;
+        padding: 0px;
+      }
+
+      a, u {
+        text-decoration: none;
+      }
+
+      .wrapper {
+        margin: 0px;
+        padding: 0px;
+      }
+
+      header {
+        display: flex;
+        flex-direction: row;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        height: 60px;
+        background-color: var(--main-bg-color);
+        border-bottom: 1px solid var(--secondary-font-color);
+      }
+
+      #brand,
+      #credits {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-basis: 20%;
+      }
+
+      #brand img {
+        text-align: center;
+        width: 120px;
+      }
+
+      a.anchor {
+        display: block;
+        position: relative;
+        top: -60px;
+        visibility: hidden;
+      }
+
+      #nav-bar,
+      #nav-footer {
+        flex-basis: 80%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: flex-end;
+        padding: 0px 20px;
+      }
+
+      #nav-bar ul,
+      #nav-footer ul {
+        list-style: none;
+        text-align: right;
+        padding: 0;
+      }
+
+      #nav-bar ul li,
+      #nav-footer ul li  {
+        display: inline;
+        margin: 0 10px;
+      }
+
+      #nav-bar ul li a,
+      #nav-footer ul li a {
+        color: var(--secondary-font-color);
+      }
+
+      #nav-bar ul li a:hover,
+      #nav-footer ul li a:hover {
+        border-bottom: 1px solid var(--secondary-font-color);
+      }
+
+      main {
+        margin: 0;
+      }
+
+      #home {
+        height: 100vh;
+        /* background: url('./images/background_pic.jpg') no-repeat center top; */
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+          ),
+          url('./images/background_pic.jpg');
+        background-position-x: center;
+        background-position-y: top;
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #home h1 {
+        font-family: 'Amatic SC', cursive;
+        font-size: 2.5rem;
+        margin: 0;
+      }
+
+      #home h1,
+      #home p {
+        color: var(--secondary-font-color);
+      }
+
+
+      #sandwiches {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      section h2 {
+        border-bottom: 1px solid #000;
+      }
+
+      #sandwiches .sandwiches-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      #sandwiches article {
+        display: flex;
+        flex-direction: row;
+        background-color: #fff;
+        margin: 10px;
+        padding: 10px;
+        border: 2px solid black;
+      }
+
+      #sandwiches .sandwich-item .item-img-small {
+        display: none;
+      }
+
+      #sandwiches .sandwich-item .item-class {
+        margin: 10px;
+        padding: 10px;
+        width: 200px;
+        height: 150px;
+      }
+
+      #sandwiches .sandwich-item .item-class h3 {
+        border-bottom: 1px solid #000;
+      }
+
+      #sandwiches .sandwiches-clarification {
+        width: 90%;
+        padding: 10px;
+        text-align: center;
+      }
+
+      #sandwiches .sandwiches-clarification p a:hover {
+        border-bottom: 1px solid var(--main-font-color);
+      }
+
+      #info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+      }
+
+      #info #video-wrapper {
+        height: 50vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #info #video-wrapper #video {
+        width: 90%;
+        height: 90%;
+      }
+
+      #info div.info-description {
+        padding: 10px;
+        margin: 10px;
+        border: 2px solid #000;
+        background-color: var(--secondary-font-color);
+      }
+
+      #info div.info-description a {
+        color: var(--main-bg-color);
+      }
+
+      #info div.info-description a:hover {
+        font-weight: bold;
+      }
+
+      #info .info-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      #info .info-form form#form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+      }
+
+      #info .info-form form#form #email {
+        flex-basis: 70%;
+        width: 100%;
+        height: 30px;
+        border: 2px solid var(--main-font-color);
+        padding: 3px;
+        margin: 0 10px;
+      }
+
+      #info .info-form form#form #submit {
+        flex-basis: 30%;
+        height: 40px;
+        border: 2px solid var(--main-font-color);
+        padding: 3px;
+        margin: 0 10px;
+      }
+
+      footer {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        border-top: 1px solid var(--secondary-font-color);;
+      }
+
+      footer #credits {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        flex-basis: 30%;
+        padding: 0 20px;
+      }
+
+      footer p {
+        color: var(--secondary-font-color);
+      }
+
+      footer #nav-footer {
+        flex-basis: 70%;
+      }
+
+      @media (max-width: 400px) {
+        footer {
+          flex-direction: column-reverse;
+          align-items: center;
+        }
+      }
+
+      @media (max-width: 600px) {
+        form {
+          flex-direction: column;
+        }
+
+        #sandwiches article {
+          flex-direction: column;
+        }
+
+        #sandwiches .sandwich-item .item-img-big {
+          display: none;
+        }
+
+        #sandwiches .sandwich-item .item-img-small {
+          display: inherit;
+          height: 150px;
+          width: 150px;
+          margin: 0 auto;
+        }
+
+        #info div.info-description {
+          text-align: center;
+        }
+
+        #info .info-form p {
+          text-align: center;
+        }
+
+        #info .info-form form#form {
+          flex-direction: column;
+        }
+
+        #info .info-form form#form #email {
+          flex-basis: unset;
+          width: 100%;
+          margin: 10px 0;
+        }
+
+        #info .info-form form#form #submit {
+          flex-basis: unset;
+          width: 100%;
+          margin: 10px 0;
+        }
+      }
+    </style>
+    <div class="wrapper">
+      <header id="header">
+        <div id="brand">
+          <img id="header-img" src="https://s15.postimg.cc/d2yk8qorv/logo.png"
+            border="0" alt="logo"/>
+        </div>
+        <nav id="nav-bar" class="header-element">
+          <ul>
+           <li><a href="#home-anchor" class="nav-link">Home</a></li>
+           <li><a href="#sandwiches-anchor" class="nav-link">Sandwiches</a></li>
+           <li><a href="#info-anchor" class="nav-link">Info</a></li>
+         </ul>
+        </nav>
+      </header>
+      <main>
+        <a class="anchor" id="home-anchor"></a>
+        <section id="home">
+          <h1>
+            <img src="https://s15.postimg.cc/d2yk8qorv/logo.png"
+              border="0" alt="logo"/>
+          </h1>
+          <p>
+            The best Lampredotto in town...
+          </p>
+          <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px"
+            href="https://unsplash.com/@lluisdomingo?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Download free do whatever you want high-resolution photos from Lluís Domingo">
+            <span style="display:inline-block;padding:2px 3px">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                style="height:12px;width:auto;position:relative;vertical-align:middle;top:-1px;fill:white"
+                viewBox="0 0 32 32">
+                <title>unsplash-logo</title>
+                <path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z">
+                </path>
+              </svg>
+            </span>
+            <span style="display:inline-block;padding:2px 3px">
+              Lluís Domingo
+            </span>
+          </a>
+        </section>
+        <section id="sandwiches">
+          <a class="anchor" id="sandwiches-anchor"></a>
+          <h2>Our Sandwiches</h2>
+          <div class="sandwiches-wrapper">
+            <article class="sandwich-item">
+              <img class="item-img-big" src="./images/sandwich_one_350x350.jpg" alt="">
+              <img class="item-img-small" src="./images/sandwich_one_150x150.jpg" alt="">
+              <div class="item-class">
+                <h3 class="item-title">il Classico</h3>
+                <p class="item-description">
+                  salt, pepper, green sauce, spicy sauce, bread dip in broth
+                </p>
+                <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px"
+                  href="https://unsplash.com/@aldyrkhanov?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Download free do whatever you want high-resolution photos from Arthur Aldyrkhanov">
+                  <span style="display:inline-block;padding:2px 3px">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-1px;fill:white" viewBox="0 0 32 32">
+                      <title>unsplash-logo</title>
+                      <path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z">
+                      </path>
+                    </svg>
+                  </span><span style="display:inline-block;padding:2px 3px">
+                    Arthur Aldyrkhanov
+                  </span>
+                </a>
+              </div>
+            </article>
+            <article class="sandwich-item">
+              <img class="item-img-big" src="./images/sandwich_two_350x350.jpg" alt="">
+              <img class="item-img-small" src="./images/sandwich_two_150x150.jpg" alt="">
+              <div class="item-class">
+                <h3 class="item-title">il Semplice</h3>
+                <p class="item-description">
+                  salt, pepper
+                </p>
+                <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px"
+                  href="https://unsplash.com/@stenuitj?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Download free do whatever you want high-resolution photos from Jérémy Stenuit">
+                  <span style="display:inline-block;padding:2px 3px">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      style="height:12px;width:auto;position:relative;vertical-align:middle;top:-1px;fill:white" viewBox="0 0 32 32">
+                      <title>unsplash-logo</title>
+                      <path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z">
+                      </path>
+                    </svg>
+                  </span>
+                  <span style="display:inline-block;padding:2px 3px">
+                    Jérémy Stenuit
+                  </span>
+                </a>
+              </div>
+            </article>
+            <article class="sandwich-item">
+              <img class="item-img-big" src="./images/sandwich_three_350x350.jpg" alt="">
+              <img class="item-img-small" src="./images/sandwich_three_150x150.jpg" alt="">
+              <div class="item-class">
+                <h3 class="item-title">il Piccante</h3>
+                <p class="item-description">
+                  salt, pepper, spicy sauce
+                </p>
+                <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px"
+                  href="https://unsplash.com/@eaterscollective?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Download free do whatever you want high-resolution photos from Eaters Collective">
+                  <span style="display:inline-block;padding:2px 3px">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      style="height:12px;width:auto;position:relative;vertical-align:middle;top:-1px;fill:white"
+                      viewBox="0 0 32 32">
+                      <title>unsplash-logo</title>
+                      <path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z">
+                      </path>
+                    </svg>
+                  </span>
+                  <span style="display:inline-block;padding:2px 3px">
+                    Eaters Collective
+                  </span>
+                </a>
+              </div>
+            </article>
+            <article class="sandwich-item">
+              <img class="item-img-big" src="./images/sandwich_four_350x350.jpg" alt="">
+              <img class="item-img-small" src="./images/sandwich_four_150x150.jpg" alt="">
+              <div class="item-class">
+                <h3 class="item-title">il Differente</h3>
+                <p class="item-description">
+                  salt, pepper, green sauce, boiled potato
+                </p>
+                <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px"
+                  href="https://unsplash.com/@edguk?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Download free do whatever you want high-resolution photos from Edward Guk">
+                  <span style="display:inline-block;padding:2px 3px">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      style="height:12px;width:auto;position:relative;vertical-align:middle;top:-1px;fill:white"
+                      viewBox="0 0 32 32">
+                      <title>unsplash-logo</title>
+                      <path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z">
+                      </path>
+                    </svg>
+                  </span>
+                  <span style="display:inline-block;padding:2px 3px">
+                    Edward Guk
+                  </span>
+                </a>
+              </div>
+            </article>
+          </div>
+          <div class="sandwiches-clarification">
+            <p>
+              * These sandwich images are not representing the real
+              <strong>panino co i' lampredotto</strong>.
+              They are sandwich images found in
+              <a href="https://unsplash.com/" target="_blank">
+                <strong>Unsplash</strong>
+              </a>.
+            </p>
+          </div>
+        </section>
+        <section id="info">
+          <a class="anchor" id="info-anchor"></a>
+          <h2>Our Story</h2>
+          <div id="video-wrapper">
+            <iframe id="video"
+              src="https://player.vimeo.com/video/255077262?title=0&portrait=0"
+              frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+            </iframe>
+          </div>
+          <div class="info-description">
+            <p>
+              <strong>Lampredotto</strong>
+              is a typical Florentine dish, made from the fourth
+              and final stomach of a cow, the abomasum.
+            </p>
+            <p>
+              <strong>Lampredotto</strong>
+              is derived from the Italian word for lamprey eels, lampreda,
+              as the tripe resembles a lamprey in shape and color.
+            </p>
+            <p>
+              A sandwich with lampredotto —
+              <strong>panino co i' lampredotto</strong>
+              — has been described as a "classic Florentine" sandwich
+              and is a traditional regional street food in Florence.
+              <br />
+              <strong>Lampredotto</strong> is typically chopped,
+              slow-cooked in a vegetable broth, seasoned with herbs,
+              and served on a bread roll.
+              <br />
+              It is often topped with a <strong>spicy sauce</strong>
+              or a <strong>green sauce (salsa verde)</strong>.
+            </p>
+            <p>
+              <span>Source</span>
+              <a href="https://en.wikipedia.org/wiki/Lampredotto" target="_blank">
+                Wikipedia
+              </a>
+            </p>
+          </div>
+          <div class="info-form">
+            <p>
+              Join our newsletter and stay connected on our new amazing sandwiches!
+            </p>
+            <form id="form" action="https://www.freecodecamp.com/email-submit">
+              <input id="email" type="email" name="email" value=""
+              placeholder="Please insert your email...">
+              <input id="submit" type="submit" name="submit" value="SUBMIT">
+            </form>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <div id="credits">
+          <p>2018 - CRISBNK</p>
+        </div>
+        <nav id="nav-footer" class="footer-element">
+          <ul>
+           <li><a href="#" class="nav-link">Privacy</a></li>
+           <li><a href="#" class="nav-link">Term</a></li>
+           <li><a href="#" class="nav-link">Contact</a></li>
+         </ul>
+        </nav>
+      </footer>
+    </div>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js">
+    </script>
   </body>
 </html>
